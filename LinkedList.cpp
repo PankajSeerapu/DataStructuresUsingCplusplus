@@ -100,31 +100,78 @@ public:
 	void DeleteNode(int data)
 	{
 		Node* currNode = this->head;
-		Node* prevNode;
-		if (this->head->data == data)
+		Node* prevNode = nullptr;
+		if (this->head != nullptr)
 		{
-			head = head->next;
-			free(currNode);
-			return;
-		}
-		else
-		{
-			while (currNode->next != nullptr && currNode->next->data != data)
+			if (this->head->data == data) //check if Node to be deleted is the Head Node
 			{
-				currNode = currNode->next;
-			}
-			if (currNode->next != nullptr)
-			{
-				prevNode = currNode;
-				currNode = currNode->next;
-				prevNode->next = prevNode->next->next;
+				head = head->next;
 				free(currNode);
+				return;
 			}
 			else
 			{
-				cout << "Given data is not found in the Linked List for Deletion" << endl;
+				while (currNode->next != nullptr && currNode->next->data != data)
+				{
+					currNode = currNode->next;  //Run the Loop Untill the Data is Found till the end of List
+				}
+				if (currNode->next != nullptr)
+				{
+					prevNode = currNode;
+					currNode = currNode->next;
+					prevNode->next = prevNode->next->next;
+					free(currNode);
+				}
+				else
+				{
+					cout << "Given data is not found in the Linked List for Deletion" << endl;
+				}
 			}
 		}
+		else
+		{
+			cout << "This Function cannot be used on a Empty Linked List" << endl;
+		}
+
+	}
+	/* Method DeleteNodeN is used to Delete a Node at the Nth Position*/
+	void DeleteNodeN(int Position)
+	{
+		Node* currNode = this->head;
+		Node* prevNode = nullptr;
+		if (this->head != nullptr) //Check if the Linked List is Empty
+		{
+			if (Position == 0)  //check if the Position to be deleted is Head
+			{
+				this->head = currNode->next;
+				free(currNode);
+				return;
+			}
+			else
+			{
+				while (currNode != nullptr && Position != 0)
+				{
+					prevNode = currNode;        // Run the Loop Until the Position is Found
+					currNode = currNode->next;  // OR till the end Linked List 
+					Position--;
+				}
+				if (currNode != nullptr && Position == 0)
+				{
+					prevNode->next = currNode->next; 
+					free(currNode);
+				}
+				else
+				{
+					cout << "Node with that Position is not present in the Linked List" << endl;
+				}
+			}
+
+		}
+		else
+		{
+			cout << "This Function cannot be used on a empty Linked List" << endl;
+		}
+		
 	}
 
 /* The Method Display can be used to Display the created Linked List*/
@@ -157,6 +204,14 @@ int main()
 	L1.DeleteNode(9);
 	L1.DeleteNode(8);
 	L1.DeleteNode(18);
+	L1.Display();
+	L1.Push(17);
+	L1.Push(19);
+	L1.Display();
+	L1.DeleteNodeN(0);
+	L1.DeleteNodeN(4);
+	L1.DeleteNodeN(5);
+	L1.DeleteNodeN(2);
 	L1.Display();
 	return 1;
 }
