@@ -96,6 +96,38 @@ public:
 		}
 		return;
 	}
+/* The Method DeleteNode is used to Delete a Node with Given Data for a Linked List Object*/
+	void DeleteNode(int data)
+	{
+		Node* currNode = this->head;
+		Node* prevNode;
+		if (this->head->data == data)
+		{
+			head = head->next;
+			free(currNode);
+			return;
+		}
+		else
+		{
+			while (currNode->next != nullptr && currNode->next->data != data)
+			{
+				currNode = currNode->next;
+			}
+			if (currNode->next != nullptr)
+			{
+				prevNode = currNode;
+				currNode = currNode->next;
+				prevNode->next = prevNode->next->next;
+				free(currNode);
+			}
+			else
+			{
+				cout << "Given data is not found in the Linked List for Deletion" << endl;
+			}
+		}
+	}
+
+/* The Method Display can be used to Display the created Linked List*/
 	void Display()
 	{
 		Node* temp = this->head;
@@ -104,6 +136,7 @@ public:
 			cout << temp->data << "->";
 			temp = temp->next;
 		}
+		cout << endl;
 	}
 };
 
@@ -119,6 +152,11 @@ int main()
 	L1.InsertAfter(12, 7);
 	L1.InsertAfter(4, 9);
 	L1.InsertAfter(14, 11);
+	L1.Display();
+	L1.DeleteNode(12);
+	L1.DeleteNode(9);
+	L1.DeleteNode(8);
+	L1.DeleteNode(18);
 	L1.Display();
 	return 1;
 }
