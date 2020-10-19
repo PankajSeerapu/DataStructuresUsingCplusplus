@@ -173,7 +173,19 @@ public:
 		}
 		
 	}
-
+	/* Delete List Function is used to Delete the Linked List of the Given Object*/
+	void DeleteList()
+	{
+		Node* currentNode, * nextNode;
+		currentNode = nextNode = this->head;
+		while (currentNode != nullptr)
+		{
+			nextNode = nextNode->next;
+			free(currentNode);
+			currentNode = nextNode;
+		}
+		this->head = nullptr;
+	}
 /* The Method Display can be used to Display the created Linked List*/
 	void Display()
 	{
@@ -212,6 +224,8 @@ int main()
 	L1.DeleteNodeN(4);
 	L1.DeleteNodeN(5);
 	L1.DeleteNodeN(2);
+	L1.Display();
+	L1.DeleteList();
 	L1.Display();
 	return 1;
 }
